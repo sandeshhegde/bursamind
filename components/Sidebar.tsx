@@ -1,15 +1,16 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import {
   LayoutDashboard, TrendingUp, Search, MessageSquare, Briefcase,
-  Eye, BarChart2, Building2, Zap, ArrowUpDown, ChevronDown, Star
+  BookOpen, Building2, Zap, ChevronDown
 } from "lucide-react";
-import { useState } from "react";
 
 const NAV = [
   { href: "/dashboard", icon: LayoutDashboard, label: "Dashboard" },
   { href: "/chat", icon: MessageSquare, label: "Ask Aria (AI)" },
+  { href: "/research", icon: BookOpen, label: "Research Library" },
   {
     label: "Market Pulse", icon: Zap, children: [
       { href: "/market", label: "Market Overview" },
@@ -65,7 +66,7 @@ export default function Sidebar() {
       {/* Nav */}
       <nav style={{ flex: 1, overflowY: "auto", padding: "12px 10px" }}>
         {NAV.map(item => {
-          if (item.children) {
+          if ("children" in item && item.children) {
             const isOpen = open.includes(item.label);
             return (
               <div key={item.label} style={{ marginBottom: 4 }}>
@@ -75,18 +76,16 @@ export default function Sidebar() {
                     display: "flex", alignItems: "center", justifyContent: "space-between",
                     padding: "7px 10px", borderRadius: 8, cursor: "pointer",
                     color: "var(--text3)", fontSize: 11, fontWeight: 700,
-                    textTransform: "uppercase", letterSpacing: "0.06em",
-                    userSelect: "none"
-                  }}
-                >
+                    textTransform: "uppercase", letterSpacing: "0.06em", userSelect: "none"
+                  }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <item.icon size={14} />
-                    {item.label}
+                    <item.icon size={14} /> {item.label}
                   </div>
                   <ChevronDown size={12} style={{ transform: isOpen ? "rotate(180deg)" : "none", transition: "0.2s" }} />
                 </div>
                 {isOpen && item.children.map(child => (
-                  <Link key={child.href} href={child.href} className={`sidebar-link${path === child.href ? " active" : ""}`}
+                  <Link key={child.href} href={child.href}
+                    className={`sidebar-link${path === child.href ? " active" : ""}`}
                     style={{ paddingLeft: 28, fontSize: 13 }}>
                     {child.label}
                   </Link>
@@ -94,17 +93,19 @@ export default function Sidebar() {
               </div>
             );
           }
-          return (
-            <Link key={item.href} href={item.href!}
-              className={`sidebar-link${path === item.href ? " active" : ""}`}>
-              <item.icon size={15} />
-              {item.label}
-            </Link>
-          );
+          if ("href" in item) {
+            return (
+              <Link key={item.href} href={item.href}
+                className={`sidebar-link${path === item.href ? " active" : ""}`}>
+                <item.icon size={15} /> {item.label}
+              </Link>
+            );
+          }
+          return null;
         })}
       </nav>
 
-      {/* Bottom */}
+      {/* Bottom badge */}
       <div style={{ padding: "12px 10px", borderTop: "1px solid var(--border)" }}>
         <div style={{
           background: "linear-gradient(135deg, rgba(0,200,151,0.1), rgba(77,159,255,0.1))",
@@ -112,7 +113,8 @@ export default function Sidebar() {
         }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: "var(--accent)", marginBottom: 4 }}>Bursa Malaysia</div>
           <div style={{ fontSize: 10, color: "var(--text3)", lineHeight: 1.5 }}>
-            Main Market · ACE Market · LEAP Market
+            Main · ACE · LEAP Market<br />
+            Powered by Groq + TradingView
           </div>
         </div>
       </div>
