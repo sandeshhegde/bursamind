@@ -4,7 +4,7 @@ import { Search, X } from "lucide-react";
 import { STOCKS } from "@/lib/data";
 import Link from "next/link";
 
-// TradingView Ticker Tape
+// TradingView Ticker Tape — using correct MYX numeric codes
 function TickerTape() {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -13,6 +13,8 @@ function TickerTape() {
     const script = document.createElement("script");
     script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
     script.async = true;
+    script.type = "text/javascript";
+    // Bursa Malaysia stocks: MYX uses 4-digit numeric codes
     script.innerHTML = JSON.stringify({
       symbols: [
         { proName: "MYX:1155", title: "MAYBANK" },
@@ -25,16 +27,24 @@ function TickerTape() {
         { proName: "MYX:3182", title: "GENTING" },
         { proName: "MYX:5183", title: "PCHEM" },
         { proName: "MYX:6888", title: "AXIATA" },
+        { proName: "MYX:1066", title: "RHBBANK" },
+        { proName: "MYX:5168", title: "HARTALEGA" },
+        { proName: "MYX:7113", title: "TOPGLOVE" },
+        { proName: "MYX:4197", title: "SIME" },
+        { proName: "MYX:1961", title: "IOICORP" },
       ],
-      showSymbolLogo: false,
+      showSymbolLogo: true,
       isTransparent: true,
-      displayMode: "compact",
+      displayMode: "adaptive",
       colorTheme: "dark",
       locale: "en",
     });
     ref.current.appendChild(script);
   }, []);
-  return <div ref={ref} style={{ flex: 1, height: 36, overflow: "hidden" }} />;
+  return (
+    <div className="tradingview-widget-container" ref={ref}
+      style={{ width: "100%", height: 46, overflow: "hidden" }} />
+  );
 }
 
 export default function Topbar() {
@@ -46,7 +56,9 @@ export default function Topbar() {
   useEffect(() => {
     if (query.length > 0) {
       const q = query.toLowerCase();
-      setResults(STOCKS.filter(s => s.symbol.toLowerCase().includes(q) || s.name.toLowerCase().includes(q)).slice(0, 6));
+      setResults(STOCKS.filter(s =>
+        s.symbol.toLowerCase().includes(q) || s.name.toLowerCase().includes(q)
+      ).slice(0, 6));
       setOpen(true);
     } else { setResults([]); setOpen(false); }
   }, [query]);
@@ -62,13 +74,12 @@ export default function Topbar() {
   return (
     <div style={{ background: "var(--bg2)", borderBottom: "1px solid var(--border)", position: "sticky", top: 0, zIndex: 50 }}>
       {/* TradingView ticker tape */}
-      <div style={{ height: 36, borderBottom: "1px solid var(--border)", overflow: "hidden" }}>
+      <div style={{ borderBottom: "1px solid var(--border)", background: "var(--bg3)", overflow: "hidden", height: 46 }}>
         <TickerTape />
       </div>
 
       {/* Main topbar */}
       <header style={{ padding: "0 24px", height: 50, display: "flex", alignItems: "center", gap: 20 }}>
-        {/* Search */}
         <div ref={ref} style={{ position: "relative", flex: 1, maxWidth: 380 }}>
           <div style={{ position: "relative" }}>
             <Search size={15} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--text3)" }} />
@@ -90,9 +101,26 @@ export default function Topbar() {
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", textDecoration: "none" }}
                   onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--card2)"}
                   onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "transparent"}>
-                  <div>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text)" }}>{s.symbol}</div>
-                    <div style={{ fontSize: 11, color: "var(--text3)" }}>{s.name}</div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    {/* Company favicon */}
+                    <div style={{ width: 28, height: 28, borderRadius: 6, overflow: "hidden", background: "var(--card2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <img
+                        src={`https://logo.clearbit.com/${s.name.toLowerCase().replace(/\s+(bhd|berhad|group|holdings|corporation|corp)\.*$/i,"").replace(/\s+/g,"")}.com`}
+                        width={28} height={28}
+                        style={{ objectFit: "contain", padding: 3 }}
+                        onError={(e) => {
+                          const el = e.currentTarget as HTMLImageElement;
+                          el.style.display = "none";
+                          const p = el.parentElement;
+                          if (p) p.innerHTML = `<span style="font-size:10px;font-weight:800;color:var(--accent)">${s.symbol.slice(0,2)}</span>`;
+                        }}
+                        alt={s.symbol}
+                      />
+                    </div>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text)" }}>{s.symbol}</div>
+                      <div style={{ fontSize: 11, color: "var(--text3)" }}>{s.name.slice(0, 26)}</div>
+                    </div>
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text)", fontFamily: "JetBrains Mono, monospace" }}>RM {s.price.toFixed(3)}</div>
@@ -103,7 +131,6 @@ export default function Topbar() {
             </div>
           )}
         </div>
-
         <div style={{ marginLeft: "auto", fontSize: 11, color: "var(--text3)" }}>
           {new Date().toLocaleTimeString("en-MY", { hour: "2-digit", minute: "2-digit" })} MYT · Bursa Malaysia
         </div>
