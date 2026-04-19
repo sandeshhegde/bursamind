@@ -6,15 +6,13 @@ interface LivePrice {
   price: number; change: number; changePct: number;
   volume: number; marketCap: number; pe: number;
   week52High: number; week52Low: number;
-  open: number; dayHigh: number; dayLow: number;
 }
 
 export function useLivePrices(symbols?: string[]) {
-  const [liveData, setLiveData] = useState<Record<string,LivePrice>>({});
-  const [loading, setLoading]   = useState(true);
-  const [lastUpdated, setLastUpdated] = useState<string|null>(null);
-  const [isLive, setIsLive]     = useState(false);
-
+  const [liveData, setLiveData]   = useState<Record<string, LivePrice>>({});
+  const [loading, setLoading]     = useState(true);
+  const [lastUpdated, setLast]    = useState<string|null>(null);
+  const [isLive, setIsLive]       = useState(false);
   const targetSymbols = symbols || STOCKS.map(s => s.symbol);
 
   const fetchPrices = useCallback(async () => {
@@ -23,9 +21,7 @@ export function useLivePrices(symbols?: string[]) {
       const res  = await fetch(`/api/prices?symbols=${targetSymbols.join(",")}`);
       const json = await res.json();
       if (json.data && Object.keys(json.data).length > 0) {
-        setLiveData(json.data);
-        setLastUpdated(json.timestamp);
-        setIsLive(true);
+        setLiveData(json.data); setLast(json.timestamp); setIsLive(true);
       }
     } catch { setIsLive(false); }
     finally  { setLoading(false); }

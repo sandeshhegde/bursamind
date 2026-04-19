@@ -1,5 +1,5 @@
 "use client";
-import { MARKET_INDICES, SP500_HISTORY, CORPORATE_ACTIONS, SECTORS } from "@/lib/data";
+import { MARKET_INDICES, KLCI_HISTORY, CORPORATE_ACTIONS, SECTORS } from "@/lib/data";
 import { useLivePrices } from "@/lib/useLivePrices";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 export default function Market() {
@@ -18,7 +18,7 @@ export default function Market() {
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16,marginBottom:16}}>
         <div className="card">
           <div style={{fontSize:14,fontWeight:700,color:"var(--text)",marginBottom:16}}>S&P 500 — 60 Day Performance</div>
-          <ResponsiveContainer width="100%" height={200}><LineChart data={SP500_HISTORY}><XAxis dataKey="date" tick={{fontSize:10,fill:"var(--text3)"}} interval={9} axisLine={false} tickLine={false}/><YAxis domain={["auto","auto"]} tick={{fontSize:10,fill:"var(--text3)"}} axisLine={false} tickLine={false} width={55}/><Tooltip contentStyle={{background:"var(--card2)",border:"1px solid var(--border)",borderRadius:8,fontSize:12}}/><Line type="monotone" dataKey="value" stroke="var(--accent)" strokeWidth={2} dot={false}/></LineChart></ResponsiveContainer>
+          <ResponsiveContainer width="100%" height={200}><LineChart data={KLCI_HISTORY}><XAxis dataKey="date" tick={{fontSize:10,fill:"var(--text3)"}} interval={9} axisLine={false} tickLine={false}/><YAxis domain={["auto","auto"]} tick={{fontSize:10,fill:"var(--text3)"}} axisLine={false} tickLine={false} width={55}/><Tooltip contentStyle={{background:"var(--card2)",border:"1px solid var(--border)",borderRadius:8,fontSize:12}}/><Line type="monotone" dataKey="value" stroke="var(--accent)" strokeWidth={2} dot={false}/></LineChart></ResponsiveContainer>
         </div>
         <div className="card">
           <div style={{fontSize:14,fontWeight:700,color:"var(--text)",marginBottom:16}}>Market Breadth</div>

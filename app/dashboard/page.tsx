@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { MARKET_INDICES, SP500_HISTORY, CORPORATE_ACTIONS } from "@/lib/data";
+import { MARKET_INDICES, KLCI_HISTORY, CORPORATE_ACTIONS } from "@/lib/data";
 import { useLivePrices } from "@/lib/useLivePrices";
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { TrendingUp, TrendingDown, ArrowRight, Zap, RefreshCw, Wifi, WifiOff } from "lucide-react";
@@ -16,7 +16,7 @@ export default function Dashboard() {
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:24 }}>
         <div>
           <h1 style={{ fontSize:22, fontWeight:800, color:"var(--text)", marginBottom:4 }}>US Market Dashboard</h1>
-          <p style={{ fontSize:13, color:"var(--text3)" }}>NYSE · NASDAQ · {new Date().toLocaleDateString("en-US",{weekday:"long",year:"numeric",month:"long",day:"numeric"})}</p>
+          <p style={{ fontSize:13, color:"var(--text3)" }}>Bursa Malaysia · {new Date().toLocaleDateString("en-US",{weekday:"long",year:"numeric",month:"long",day:"numeric"})}</p>
         </div>
         <div style={{ display:"flex", alignItems:"center", gap:12 }}>
           <div style={{ display:"flex", alignItems:"center", gap:6, padding:"6px 12px", borderRadius:20, fontSize:11, fontWeight:700, background:isLive?"rgba(0,200,151,0.12)":"rgba(245,185,66,0.12)", border:`1px solid ${isLive?"rgba(0,200,151,0.3)":"rgba(245,185,66,0.3)"}`, color:isLive?"var(--accent)":"var(--gold)" }}>
@@ -56,7 +56,7 @@ export default function Dashboard() {
             <span className="tag-green">+0.49% Today</span>
           </div>
           <ResponsiveContainer width="100%" height={220}>
-            <LineChart data={SP500_HISTORY}>
+            <LineChart data={KLCI_HISTORY}>
               <XAxis dataKey="date" tick={{fontSize:10,fill:"var(--text3)"}} interval={9} axisLine={false} tickLine={false}/>
               <YAxis domain={["auto","auto"]} tick={{fontSize:10,fill:"var(--text3)"}} axisLine={false} tickLine={false} width={60}/>
               <Tooltip contentStyle={{background:"var(--card2)",border:"1px solid var(--border)",borderRadius:8,fontSize:12}} labelStyle={{color:"var(--text3)"}} itemStyle={{color:"var(--accent)"}}/>
