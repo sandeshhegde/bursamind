@@ -4,8 +4,8 @@ import Sidebar from "@/components/Sidebar";
 import Topbar from "@/components/Topbar";
 
 export const metadata: Metadata = {
-  title: "BursaMind AI — Bursa Malaysia Research Platform",
-  description: "AI-powered stock research and analysis for Bursa Malaysia markets",
+  title: "StockMind AI — US Market Research Platform",
+  description: "AI-powered stock research and analysis for US markets — S&P 500, NASDAQ, NYSE",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -16,11 +16,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <div style={{ display: "flex", minHeight: "100vh" }}>
+        <div style={{ display:"flex", minHeight:"100vh" }}>
           <Sidebar />
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+          <div style={{ flex:1, display:"flex", flexDirection:"column", overflow:"hidden" }}>
             <Topbar />
-            <main style={{ flex: 1, overflowY: "auto", padding: "24px", background: "var(--bg)" }}>
+            <main style={{ flex:1, overflowY:"auto", padding:"24px", background:"var(--bg)" }}>
               {children}
             </main>
           </div>
