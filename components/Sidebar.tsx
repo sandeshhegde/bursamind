@@ -2,19 +2,17 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { LayoutDashboard, TrendingUp, Search, MessageSquare, Briefcase, BookOpen, Zap, ChevronDown, Eye } from "lucide-react";
+import { LayoutDashboard, TrendingUp, Search, MessageSquare, Briefcase, BookOpen, Zap, ChevronDown, Eye, Newspaper } from "lucide-react";
 
 const NAV = [
   { href:"/dashboard", icon:LayoutDashboard, label:"Dashboard" },
   { href:"/chat",      icon:MessageSquare,   label:"Ask Aria (AI)" },
-  {
-    label:"🔥 Insider Intel", icon:Eye, href:"/insider",
-    badge:"NEW",
-  },
+  { href:"/news",      icon:Newspaper,       label:"News Hub",      badge:"LIVE" },
+  { href:"/insider",   icon:Eye,             label:"Insider Intel",  badge:"NEW" },
   { href:"/research",  icon:BookOpen,        label:"Research Library" },
   { label:"Market Pulse", icon:Zap, children:[
-    { href:"/market",   label:"Market Overview"     },
-    { href:"/movers",   label:"Market Movers"       },
+    { href:"/market",   label:"Market Overview"      },
+    { href:"/movers",   label:"Market Movers"        },
     { href:"/sectors",  label:"Sectors & Industries" },
   ]},
   { label:"Market Explorer", icon:Search, children:[
@@ -34,9 +32,10 @@ export default function Sidebar() {
 
   return (
     <aside style={{ width:224, minWidth:224, background:"var(--bg2)", borderRight:"1px solid var(--border)", display:"flex", flexDirection:"column", height:"100vh", position:"sticky", top:0, overflow:"hidden" }}>
+      {/* Logo */}
       <div style={{ padding:"20px 16px 16px", borderBottom:"1px solid var(--border)" }}>
         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-          <div style={{ width:32, height:32, borderRadius:8, background:"linear-gradient(135deg, var(--accent), var(--blue))", display:"flex", alignItems:"center", justifyContent:"center" }}>
+          <div style={{ width:32, height:32, borderRadius:8, background:"linear-gradient(135deg,var(--accent),var(--blue))", display:"flex", alignItems:"center", justifyContent:"center" }}>
             <TrendingUp size={16} color="#000" strokeWidth={2.5}/>
           </div>
           <div>
@@ -46,6 +45,7 @@ export default function Sidebar() {
         </div>
       </div>
 
+      {/* Nav */}
       <nav style={{ flex:1, overflowY:"auto", padding:"12px 10px" }}>
         {NAV.map(item => {
           if ("children" in item && item.children) {
@@ -63,18 +63,18 @@ export default function Sidebar() {
             );
           }
           if ("href" in item) {
-            const isInsider = item.href === "/insider";
+            const isSpecial = "badge" in item && item.badge;
+            const badgeColor = item.badge === "LIVE" ? "var(--accent)" : "var(--gold)";
             return (
               <Link key={item.href} href={item.href}
                 className={`sidebar-link${path===item.href?" active":""}`}
-                style={isInsider ? {
-                  background:"linear-gradient(135deg,rgba(0,200,151,0.15),rgba(77,159,255,0.1))",
-                  border:"1px solid rgba(0,200,151,0.25)", marginBottom:4,
-                } : {}}>
+                style={isSpecial ? { marginBottom:2 } : {}}>
                 <item.icon size={15}/>
                 {item.label}
-                {"badge" in item && item.badge && (
-                  <span style={{ marginLeft:"auto", fontSize:9, fontWeight:800, padding:"2px 6px", borderRadius:20, background:"var(--accent)", color:"#000" }}>{item.badge}</span>
+                {isSpecial && (
+                  <span style={{ marginLeft:"auto", fontSize:9, fontWeight:800, padding:"2px 6px", borderRadius:20, background:badgeColor, color:"#000" }}>
+                    {item.badge}
+                  </span>
                 )}
               </Link>
             );
@@ -83,13 +83,11 @@ export default function Sidebar() {
         })}
       </nav>
 
+      {/* Bottom badge */}
       <div style={{ padding:"12px 10px", borderTop:"1px solid var(--border)" }}>
         <div style={{ background:"linear-gradient(135deg,rgba(0,200,151,0.1),rgba(77,159,255,0.1))", border:"1px solid rgba(0,200,151,0.2)", borderRadius:10, padding:"12px 14px" }}>
           <div style={{ fontSize:11, fontWeight:700, color:"var(--accent)", marginBottom:4 }}>🇲🇾 Bursa Malaysia</div>
-          <div style={{ fontSize:10, color:"var(--text3)", lineHeight:1.5 }}>
-            Main · ACE · LEAP Market<br/>
-            Powered by Groq + TradingView
-          </div>
+          <div style={{ fontSize:10, color:"var(--text3)", lineHeight:1.5 }}>Main · ACE · LEAP Market<br/>Powered by Groq AI</div>
         </div>
       </div>
     </aside>
