@@ -39,23 +39,27 @@ function parseRSS(xml: string, fallbackSource: string, color: string): NewsItem[
     let title  = stripCDATA(extract(block, "title")).trim();
     const link   = stripCDATA(extract(block, "link")).trim() || stripCDATA(extract(block, "guid")).trim();
     const pubDate = extract(block, "pubDate").trim() || extract(block, "dc:date").trim();
-    const desc   = stripCDATA(extract(block, "description")).replace(/<[^>]+>/g, "").trim().slice(0, 180);
+    const desc   = decodeEntities(stripCDATA(extract(block, "description"))).replace(/<[^>]+>/g, "").trim().slice(0, 180);
     const srcTag = stripCDATA(extract(block, "source")).trim();
 
     if (!title || title.length < 5) continue;
 
-    // Google News RSS appends " - Publisher Name" to the title — split it out
+    // Google News RSS appends " - Publisher Name" to the title — split it out.
+    // Its <description> is just "<a>Title</a> Source" again (redundant), so
+    // we discard it for Google News items rather than show a duplicate snippet.
     let source = srcTag || fallbackSource;
+    let cleanDesc = desc;
     const dashSplit = title.match(/^(.*)\s-\s([^-]+)$/);
     if (!srcTag && dashSplit) {
       title = dashSplit[1].trim();
       source = dashSplit[2].trim();
+      cleanDesc = "";
     }
 
-    const full = (title + " " + desc).toLowerCase();
+    const full = (title + " " + cleanDesc).toLowerCase();
     const isBursaRelated = /bursa|klci|klse|ringgit|myr|saham|malaysia stock|fbm|maybank|cimb|tenaga|petronas|axiata|maxis|genting|ipo|dividend|earnings|quarter|profit|revenue|analyst|invest|fund|epf|pnb|bnm|opr|rate|inflation|malaysia/i.test(full);
 
-    items.push({ title, link, pubDate, source, category: "News", color, summary: desc, isBursaRelated });
+    items.push({ title, link, pubDate, source, category: "News", color, summary: cleanDesc, isBursaRelated });
   }
   return items;
 }
@@ -66,6 +70,21 @@ function extract(s: string, tag: string): string {
 }
 function stripCDATA(s: string): string {
   return s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1");
+}
+function decodeEntitiesOnce(s: string): string {
+  return s
+    .replace(/&amp;/g, "&")   // unescape outer XML encoding FIRST
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, " ");
+}
+function decodeEntities(s: string): string {
+  // Google News descriptions are double-encoded (e.g. "&amp;nbsp;" instead of
+  // "&nbsp;"), so a single pass leaves residual entities. Run twice.
+  return decodeEntitiesOnce(decodeEntitiesOnce(s));
 }
 
 // Curated, always-available links shown if every live fetch fails —
