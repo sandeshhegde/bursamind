@@ -44,7 +44,7 @@ function XFeed() {
         </div>
         <a
           className="twitter-timeline"
-          data-theme="dark"
+          data-theme="light"
           data-height="360"
           data-chrome="noheader nofooter noborders transparent"
           href="https://twitter.com/BursaMalaysia"
@@ -60,7 +60,7 @@ function XFeed() {
         </div>
         <a
           className="twitter-timeline"
-          data-theme="dark"
+          data-theme="light"
           data-height="360"
           data-chrome="noheader nofooter noborders transparent"
           href="https://twitter.com/theedgemarkets"
@@ -76,7 +76,7 @@ function XFeed() {
         </div>
         <a
           className="twitter-timeline"
-          data-theme="dark"
+          data-theme="light"
           data-height="360"
           data-chrome="noheader nofooter noborders transparent"
           href="https://twitter.com/KinibizMY"
@@ -206,16 +206,14 @@ export default function NewsHub() {
     try {
       const res  = await fetch("/api/news");
       const data = await res.json();
-      if (data.items?.length > 0) {
-        setNews(data.items);
-        setIsLive(data.sourcesLive > 0);
-        setLast(data.timestamp);
-      } else {
-        setError("News feeds temporarily unavailable. Check links in Bursa Official section.");
-        setIsLive(false);
+      setNews(data.items || []);
+      setLast(data.timestamp);
+      setIsLive(data.sourcesLive > 0 && !data.usingFallback);
+      if (data.usingFallback) {
+        setError("Live feeds are temporarily slow to respond — showing quick links to official sources below while we retry.");
       }
     } catch {
-      setError("Could not load news feeds.");
+      setError("Could not reach news feeds right now. Try refreshing, or use the links below.");
       setIsLive(false);
     }
     setLoading(false);
@@ -375,7 +373,7 @@ export default function NewsHub() {
                 <div style={{ padding: "8px", minHeight: 400 }}>
                   <a
                     className="twitter-timeline"
-                    data-theme="dark"
+                    data-theme="light"
                     data-height="400"
                     data-chrome="noheader nofooter noborders transparent"
                     data-tweet-limit="5"
