@@ -25,9 +25,9 @@ export default function IPO() {
             <div style={{fontSize:12,color:"var(--text3)"}}>{ipo.sector}</div>
           </div>
           <div style={{display:"flex",gap:24,flexWrap:"wrap"}}>
-            <div><div style={{fontSize:10,color:"var(--text3)",fontWeight:700,marginBottom:4}}>ISSUE PRICE</div><div style={{fontSize:16,fontWeight:800,fontFamily:"JetBrains Mono,monospace",color:"var(--text)"}}>${ipo.issue.toFixed(2)}</div></div>
+            <div><div style={{fontSize:10,color:"var(--text3)",fontWeight:700,marginBottom:4}}>ISSUE PRICE</div><div style={{fontSize:16,fontWeight:800,fontFamily:"Roboto Mono,monospace",color:"var(--text)"}}>${ipo.issue.toFixed(2)}</div></div>
             <div><div style={{fontSize:10,color:"var(--text3)",fontWeight:700,marginBottom:4}}>LISTING DATE</div><div style={{fontSize:14,fontWeight:600,color:"var(--text)",display:"flex",alignItems:"center",gap:5}}><Calendar size={12}/>{ipo.listing}</div></div>
-            <div><div style={{fontSize:10,color:"var(--text3)",fontWeight:700,marginBottom:4}}>MARKET CAP</div><div style={{fontSize:14,fontWeight:600,fontFamily:"JetBrains Mono,monospace",color:"var(--text)"}}>${ipo.marketCap.toLocaleString()}M</div></div>
+            <div><div style={{fontSize:10,color:"var(--text3)",fontWeight:700,marginBottom:4}}>MARKET CAP</div><div style={{fontSize:14,fontWeight:600,fontFamily:"Roboto Mono,monospace",color:"var(--text)"}}>${ipo.marketCap.toLocaleString()}M</div></div>
             {ipo.status==="Listed"&&<div><div style={{fontSize:10,color:"var(--text3)",fontWeight:700,marginBottom:4}}>LISTING GAIN</div><div className={ipo.gain>=0?"tag-green":"tag-red"} style={{fontSize:14,padding:"4px 10px"}}>{ipo.gain>=0?"+":""}{ipo.gain.toFixed(2)}%</div></div>}
           </div>
         </div>)}

@@ -36,15 +36,15 @@ export default function Sidebar() {
   const toggle = (l:string) => setOpen(p => p.includes(l)?p.filter(x=>x!==l):[...p,l]);
 
   return (
-    <aside style={{ width:224, minWidth:224, background:"var(--bg2)", borderRight:"1px solid var(--border)", display:"flex", flexDirection:"column", height:"100vh", position:"sticky", top:0, overflow:"hidden" }}>
+    <aside style={{ width:224, minWidth:224, background:"var(--bg)", borderRight:"1px solid var(--border)", display:"flex", flexDirection:"column", height:"100vh", position:"sticky", top:0, overflow:"hidden" }}>
       {/* Logo */}
-      <div style={{ padding:"20px 16px 16px", borderBottom:"1px solid var(--border)" }}>
+      <div style={{ padding:"22px 18px 18px" }}>
         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-          <div style={{ width:32, height:32, borderRadius:8, background:"linear-gradient(135deg,var(--accent),var(--blue))", display:"flex", alignItems:"center", justifyContent:"center" }}>
-            <TrendingUp size={16} color="#000" strokeWidth={2.5}/>
+          <div style={{ width:34, height:34, borderRadius:9, background:"linear-gradient(135deg,var(--blue),var(--accent))", display:"flex", alignItems:"center", justifyContent:"center", boxShadow:"0 1px 3px rgba(60,64,67,0.2)" }}>
+            <TrendingUp size={17} color="#fff" strokeWidth={2.5}/>
           </div>
           <div>
-            <div style={{ fontSize:15, fontWeight:800, color:"var(--text)" }}>BursaMind</div>
+            <div style={{ fontSize:16, fontWeight:700, color:"var(--text)", fontFamily:"'Google Sans', Roboto, sans-serif" }}>BursaMind</div>
             <div style={{ fontSize:10, color:"var(--text3)", fontWeight:500 }}>AI Research Platform</div>
           </div>
         </div>
@@ -69,6 +69,7 @@ export default function Sidebar() {
           }
           if ("href" in item) {
             const isSpecial = "badge" in item && item.badge;
+            const badgeBg = item.badge === "LIVE" ? "#e6f4ea" : "#fef7e0";
             const badgeColor = item.badge === "LIVE" ? "var(--accent)" : "var(--gold)";
             return (
               <Link key={item.href} href={item.href}
@@ -77,7 +78,7 @@ export default function Sidebar() {
                 <item.icon size={15}/>
                 {item.label}
                 {isSpecial && (
-                  <span style={{ marginLeft:"auto", fontSize:9, fontWeight:800, padding:"2px 6px", borderRadius:20, background:badgeColor, color:"#000" }}>
+                  <span style={{ marginLeft:"auto", fontSize:9, fontWeight:800, padding:"2px 7px", borderRadius:20, background:badgeBg, color:badgeColor }}>
                     {item.badge}
                   </span>
                 )}
@@ -89,9 +90,9 @@ export default function Sidebar() {
       </nav>
 
       {/* Bottom badge */}
-      <div style={{ padding:"12px 10px", borderTop:"1px solid var(--border)" }}>
-        <div style={{ background:"linear-gradient(135deg,rgba(0,200,151,0.1),rgba(77,159,255,0.1))", border:"1px solid rgba(0,200,151,0.2)", borderRadius:10, padding:"12px 14px" }}>
-          <div style={{ fontSize:11, fontWeight:700, color:"var(--accent)", marginBottom:4 }}>🇲🇾 Bursa Malaysia</div>
+      <div style={{ padding:"14px 10px", borderTop:"1px solid var(--border)" }}>
+        <div style={{ background:"linear-gradient(135deg,#e8f0fe,#e6f4ea)", borderRadius:12, padding:"13px 14px" }}>
+          <div style={{ fontSize:11, fontWeight:700, color:"var(--blue)", marginBottom:4 }}>🇲🇾 Bursa Malaysia</div>
           <div style={{ fontSize:10, color:"var(--text3)", lineHeight:1.5 }}>Main · ACE · LEAP Market<br/>Powered by Groq AI</div>
         </div>
       </div>

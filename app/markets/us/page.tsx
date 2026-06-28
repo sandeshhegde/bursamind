@@ -70,7 +70,7 @@ export default function USMarkets() {
             <TVWidget
               scriptSrc="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js"
               config={{
-                colorTheme: "dark",
+                colorTheme: "light",
                 dateRange: "12M",
                 showChart: true,
                 locale: "en",
@@ -82,8 +82,8 @@ export default function USMarkets() {
                 showFloatingTooltip: true,
                 plotLineColorGrowing: "rgba(0, 200, 151, 1)",
                 plotLineColorFalling: "rgba(255, 95, 107, 1)",
-                gridLineColor: "rgba(35, 45, 66, 0.5)",
-                scaleFontColor: "rgba(138, 150, 176, 1)",
+                gridLineColor: "rgba(232, 234, 237, 0.9)",
+                scaleFontColor: "rgba(95, 99, 104, 1)",
                 belowLineFillColorGrowing: "rgba(0, 200, 151, 0.12)",
                 belowLineFillColorFalling: "rgba(255, 95, 107, 0.12)",
                 tabs: [
@@ -122,7 +122,7 @@ export default function USMarkets() {
               config={{
                 feedMode: "market",
                 market: "stock",
-                colorTheme: "dark",
+                colorTheme: "light",
                 isTransparent: true,
                 displayMode: "regular",
                 width: "100%",
@@ -158,7 +158,7 @@ export default function USMarkets() {
                 defaultScreen: "general",
                 market: "america",
                 showToolbar: true,
-                colorTheme: "dark",
+                colorTheme: "light",
                 locale: "en",
               }}
               height={650}
@@ -191,7 +191,7 @@ export default function USMarkets() {
                 blockColor: "change",
                 locale: "en",
                 symbolUrl: "",
-                colorTheme: "dark",
+                colorTheme: "light",
                 hasTopBar: true,
                 isDataSetEnabled: true,
                 isZoomEnabled: true,

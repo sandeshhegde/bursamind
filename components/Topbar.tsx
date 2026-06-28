@@ -44,7 +44,7 @@ export default function Topbar() {
             flexShrink: 0,
           }}>
             <span style={{ fontSize: 11, color: "var(--text3)", fontWeight: 600 }}>{idx.name}</span>
-            <span style={{ fontSize: 12, fontWeight: 800, fontFamily: "JetBrains Mono,monospace", color: "var(--text)" }}>
+            <span style={{ fontSize: 12, fontWeight: 800, fontFamily: "Roboto Mono,monospace", color: "var(--text)" }}>
               {idx.value.toLocaleString()}
             </span>
             <span style={{
@@ -84,7 +84,7 @@ export default function Topbar() {
             )}
           </div>
           {open && results.length > 0 && (
-            <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 0, right: 0, background: "var(--card)", border: "1px solid var(--border)", borderRadius: 10, boxShadow: "0 8px 32px rgba(0,0,0,0.4)", zIndex: 100, overflow: "hidden" }}>
+            <div style={{ position: "absolute", top: "calc(100% + 6px)", left: 0, right: 0, background: "var(--card)", border: "1px solid var(--border)", borderRadius: 10, boxShadow: "0 4px 16px rgba(32,33,36,0.18)", zIndex: 100, overflow: "hidden" }}>
               {results.map(s => (
                 <Link key={s.symbol} href={`/stock/${s.symbol}`}
                   onClick={() => { setQuery(""); setOpen(false); }}
@@ -105,7 +105,7 @@ export default function Topbar() {
                     </div>
                   </div>
                   <div style={{ textAlign: "right" }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text)", fontFamily: "JetBrains Mono,monospace" }}>RM {s.price.toFixed(3)}</div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: "var(--text)", fontFamily: "Roboto Mono,monospace" }}>RM {s.price.toFixed(3)}</div>
                     <div style={{ fontSize: 11 }} className={s.changePct >= 0 ? "pos" : "neg"}>{s.changePct >= 0 ? "+" : ""}{s.changePct.toFixed(2)}%</div>
                   </div>
                 </Link>

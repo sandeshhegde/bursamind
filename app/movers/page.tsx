@@ -26,7 +26,7 @@ export default function Movers() {
                 <span style={{fontSize:22,fontWeight:300,color:"var(--text3)"}}>#{i+1}</span>
               </div>
               <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end"}}>
-                <div><div style={{fontSize:20,fontWeight:800,fontFamily:"JetBrains Mono,monospace",color:"var(--text)"}}>${s.price.toFixed(2)}</div><div style={{fontSize:11,color:"var(--text3)",marginTop:4}}>Vol: {(s.volume/1e6).toFixed(1)}M · MCap: ${(s.marketCap/1000).toFixed(0)}B</div></div>
+                <div><div style={{fontSize:20,fontWeight:800,fontFamily:"Roboto Mono,monospace",color:"var(--text)"}}>${s.price.toFixed(2)}</div><div style={{fontSize:11,color:"var(--text3)",marginTop:4}}>Vol: {(s.volume/1e6).toFixed(1)}M · MCap: ${(s.marketCap/1000).toFixed(0)}B</div></div>
                 <span className={s.changePct>=0?"tag-green":"tag-red"} style={{fontSize:14,padding:"4px 10px"}}>{s.changePct>=0?"+":""}{s.changePct.toFixed(2)}%</span>
               </div>
             </div>

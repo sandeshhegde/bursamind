@@ -80,7 +80,7 @@ export default function MalaysiaMarkets() {
               defaultScreen: "general",
               market: "malaysia",
               showToolbar: true,
-              colorTheme: "dark",
+              colorTheme: "light",
               locale: "en",
             }}
             height={650}
@@ -96,7 +96,7 @@ export default function MalaysiaMarkets() {
               blockColor: "change",
               locale: "en",
               symbolUrl: "",
-              colorTheme: "dark",
+              colorTheme: "light",
               hasTopBar: true,
               isDataSetEnabled: true,
               isZoomEnabled: true,
@@ -121,7 +121,7 @@ export default function MalaysiaMarkets() {
             config={{
               feedMode: "market",
               market: "malaysia",
-              colorTheme: "dark",
+              colorTheme: "light",
               isTransparent: true,
               displayMode: "regular",
               width: "100%",

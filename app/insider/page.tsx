@@ -214,7 +214,7 @@ function StockCard({ stock, txs }: { stock: string; txs: Transaction[] }) {
                     ].map(s => (
                       <div key={s.label} style={{ background: "var(--bg2)", borderRadius: 6, padding: "6px 8px" }}>
                         <div style={{ fontSize: 9, color: "var(--text3)", textTransform: "uppercase", fontWeight: 700, marginBottom: 2 }}>{s.label}</div>
-                        <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text)", fontFamily: "JetBrains Mono, monospace" }}>{s.value}</div>
+                        <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text)", fontFamily: "Roboto Mono, monospace" }}>{s.value}</div>
                       </div>
                     ))}
                   </div>
@@ -366,7 +366,7 @@ export default function InsiderIntelligence() {
             </div>
             <div>
               <div style={{ fontSize: 11, color: "var(--text3)", fontWeight: 600, marginBottom: 4 }}>{s.label}</div>
-              <div style={{ fontSize: 20, fontWeight: 800, color: s.color, fontFamily: "JetBrains Mono, monospace" }}>{s.value}</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: s.color, fontFamily: "Roboto Mono, monospace" }}>{s.value}</div>
             </div>
           </div>
         ))}
@@ -401,7 +401,7 @@ export default function InsiderIntelligence() {
             { score: "0–34",   signal: "STRONG SELL",  color: "#ff3b4e", desc: "Major disposal signal" },
           ].map(r => (
             <div key={r.signal} style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 7 }}>
-              <span style={{ fontSize: 9, fontFamily: "JetBrains Mono, monospace", color: "var(--text3)", width: 44 }}>{r.score}</span>
+              <span style={{ fontSize: 9, fontFamily: "Roboto Mono, monospace", color: "var(--text3)", width: 44 }}>{r.score}</span>
               <SignalBadge signal={r.signal} color={r.color}/>
               <span style={{ fontSize: 10, color: "var(--text3)" }}>{r.desc}</span>
             </div>

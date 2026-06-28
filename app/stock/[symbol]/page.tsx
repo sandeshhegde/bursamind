@@ -16,7 +16,7 @@ function TradingViewChart({ symbol }: { symbol: string }) {
     const s = document.createElement("script");
     s.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
     s.async = true; s.type = "text/javascript";
-    s.innerHTML = JSON.stringify({ autosize:true, symbol:tvSym, interval:"D", timezone:"Asia/Kuala_Lumpur", theme:"dark", style:"1", locale:"en", backgroundColor:"#161c2d", gridColor:"rgba(35,45,66,0.5)", hide_top_toolbar:false, save_image:false, studies:["STD;MACD","STD;RSI"] });
+    s.innerHTML = JSON.stringify({ autosize:true, symbol:tvSym, interval:"D", timezone:"Asia/Kuala_Lumpur", theme:"light", style:"1", locale:"en", backgroundColor:"#ffffff", gridColor:"rgba(232,234,237,0.8)", hide_top_toolbar:false, save_image:false, studies:["STD;MACD","STD;RSI"] });
     ref.current.appendChild(s);
   }, [tvSym]);
   return (
@@ -41,7 +41,7 @@ function TradingViewMini({ symbol }: { symbol: string }) {
     const s = document.createElement("script");
     s.src = "https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js";
     s.async = true; s.type = "text/javascript";
-    s.innerHTML = JSON.stringify({ symbols:[[tvSym,tvSym+"|1D"]], chartOnly:false, width:"100%", height:"220", locale:"en", colorTheme:"dark", autosize:false, showVolume:true, showMA:false, hideDateRanges:false, hideMarketStatus:false, scalePosition:"right", scaleMode:"Normal", fontFamily:"Plus Jakarta Sans,sans-serif", fontSize:"10", noTimeScale:false, valuesTracking:"1", changeMode:"price-and-percent", chartType:"area", backgroundColor:"#161c2d", lineWidth:2, dateRanges:["1d|1","1m|30","3m|60","12m|1D"] });
+    s.innerHTML = JSON.stringify({ symbols:[[tvSym,tvSym+"|1D"]], chartOnly:false, width:"100%", height:"220", locale:"en", colorTheme:"light", autosize:false, showVolume:true, showMA:false, hideDateRanges:false, hideMarketStatus:false, scalePosition:"right", scaleMode:"Normal", fontFamily:"Roboto,sans-serif", fontSize:"10", noTimeScale:false, valuesTracking:"1", changeMode:"price-and-percent", chartType:"area", backgroundColor:"#ffffff", lineWidth:2, dateRanges:["1d|1","1m|30","3m|60","12m|1D"] });
     ref.current.appendChild(s);
   }, [tvSym]);
   return <div ref={ref} style={{ borderRadius:8, overflow:"hidden", minHeight:220 }}/>;
@@ -71,7 +71,7 @@ export default function StockPage() {
   const Stat = ({label,value,sub}:{label:string;value:string;sub?:string}) => (
     <div style={{ padding:"11px 0", borderBottom:"1px solid var(--border)" }}>
       <div style={{ fontSize:11, color:"var(--text3)", fontWeight:600, marginBottom:3 }}>{label}</div>
-      <div style={{ fontSize:14, fontWeight:700, color:"var(--text)", fontFamily:"JetBrains Mono,monospace" }}>{value}</div>
+      <div style={{ fontSize:14, fontWeight:700, color:"var(--text)", fontFamily:"Roboto Mono,monospace" }}>{value}</div>
       {sub && <div style={{ fontSize:10, color:"var(--text3)", marginTop:2 }}>{sub}</div>}
     </div>
   );
@@ -104,7 +104,7 @@ export default function StockPage() {
             </div>
           </div>
           <div style={{ textAlign:"right" }}>
-            <div style={{ fontSize:34, fontWeight:800, fontFamily:"JetBrains Mono,monospace", color:"var(--text)", marginBottom:6 }}>
+            <div style={{ fontSize:34, fontWeight:800, fontFamily:"Roboto Mono,monospace", color:"var(--text)", marginBottom:6 }}>
               RM {stock.price.toFixed(3)}
             </div>
             <div style={{ display:"flex", alignItems:"center", gap:8, justifyContent:"flex-end" }}>
