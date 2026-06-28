@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { LayoutDashboard, TrendingUp, Search, MessageSquare, Briefcase, BookOpen, Zap, ChevronDown, Eye, Newspaper } from "lucide-react";
+import { LayoutDashboard, TrendingUp, Search, MessageSquare, Briefcase, BookOpen, Zap, ChevronDown, Eye, Newspaper, Globe2 } from "lucide-react";
 
 const NAV = [
   { href:"/dashboard", icon:LayoutDashboard, label:"Dashboard" },
@@ -10,6 +10,11 @@ const NAV = [
   { href:"/news",      icon:Newspaper,       label:"News Hub",      badge:"LIVE" },
   { href:"/insider",   icon:Eye,             label:"Insider Intel",  badge:"NEW" },
   { href:"/research",  icon:BookOpen,        label:"Research Library" },
+  { label:"Global Markets", icon:Globe2, children:[
+    { href:"/markets/malaysia", label:"🇲🇾 Malaysia — Live"  },
+    { href:"/markets/us",       label:"🇺🇸 United States"   },
+    { href:"/markets/crypto",  label:"₿ Crypto"            },
+  ]},
   { label:"Market Pulse", icon:Zap, children:[
     { href:"/market",   label:"Market Overview"      },
     { href:"/movers",   label:"Market Movers"        },
@@ -27,7 +32,7 @@ const NAV = [
 
 export default function Sidebar() {
   const path = usePathname();
-  const [open, setOpen] = useState<string[]>(["Market Pulse","Market Explorer","Investor's Suite"]);
+  const [open, setOpen] = useState<string[]>(["Global Markets","Market Pulse","Market Explorer","Investor's Suite"]);
   const toggle = (l:string) => setOpen(p => p.includes(l)?p.filter(x=>x!==l):[...p,l]);
 
   return (
